@@ -1,0 +1,38 @@
+{
+    "name": "interpro/imageaggr",
+    "description": "Картинки.",
+    "version": "1.0.1",
+    "require": {
+        "interpro/core": "1.0.*",
+        "interpro/extractor": "1.0.*"
+    },
+    "keywords": [
+        "imageaggr"
+    ],
+    "license": "MIT",
+    "authors": [
+    {
+        "name": "Boris Dorofeev",
+        "email": "boris.dorofeev@gmail.com"
+    }
+    ],
+    "autoload": {
+        "classmap": [],
+        "files": [],
+        "psr-4": {
+        "Interpro\\ImageAggr\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Interpro\\ImageAggr\\Test": "test/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : true
+}
