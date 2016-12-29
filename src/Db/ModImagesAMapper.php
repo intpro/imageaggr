@@ -172,6 +172,14 @@ class ModImagesAMapper implements AMapper
         return $mapCollection;
     }
 
-
+    /**
+     * @param \Interpro\Extractor\Contracts\Selection\SelectionUnit $selectionUnit
+     *
+     * @return int
+     */
+    public function count(SelectionUnit $selectionUnit)
+    {
+        return 0;
+    }
 
 }
