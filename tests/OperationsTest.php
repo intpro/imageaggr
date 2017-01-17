@@ -45,6 +45,27 @@ class OperationsTest extends TestCase
 
     public function setUp()
     {
+        //Здесь проблема - хранится состояние между тестами (TestImageAggrDbAgent), пока через url запускать
+
+       /*
+        $test = new Interpro\ImageAggr\Test\OperationsTest();
+
+        $test->setUp();
+
+        $test->testInitOperation();
+        $test->testUploadOperation();
+        $test->testSaveOperation();
+        $test->testRefreshOperation();
+        $test->testCropOperation();
+        $test->testCleanPhOperation();
+        $test->testDeleteOperation();
+
+        $test->tearDown();
+
+        apt-get install php5-imagick  -  драйвер без потери качества вместо gd
+        apt-get install imagemagick
+       */
+
         parent::setUp();
 
         //Создание основных папок -------------------------------------------------------------------------

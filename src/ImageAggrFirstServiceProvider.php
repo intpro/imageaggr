@@ -59,6 +59,40 @@ class ImageAggrFirstServiceProvider extends ServiceProvider {
             File::makeDirectory(public_path('images/tmp/resizes'));
         }
 
+
+        //---------------------------------------для тэстов-------------
+
+        if(!File::isDirectory(public_path('images/test')))
+        {
+            File::makeDirectory(public_path('images/test'));
+        }
+
+        if(!File::isDirectory(public_path('images/test/resizes')))
+        {
+            File::makeDirectory(public_path('images/test/resizes'));
+        }
+
+        if(!File::isDirectory(public_path('images/test/crops')))
+        {
+            File::makeDirectory(public_path('images/test/crops'));
+        }
+
+        if(!File::isDirectory(public_path('images/test/placeholders')))
+        {
+            File::makeDirectory(public_path('images/test/placeholders'));
+        }
+
+        //Создание папок временного хранения для обеспечения процесса выборка картинки в админ. панели -----
+        if(!File::isDirectory(public_path('images/test/tmp')))
+        {
+            File::makeDirectory(public_path('images/test/tmp'));
+        }
+
+        if(!File::isDirectory(public_path('images/test/tmp/resizes')))
+        {
+            File::makeDirectory(public_path('images/test/tmp/resizes'));
+        }
+
     }
 
     /**
