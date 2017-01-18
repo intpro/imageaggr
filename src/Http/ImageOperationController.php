@@ -53,9 +53,9 @@ class ImageOperationController extends Controller
                 $entity_id = 0;
             }
 
-            $item = $this->operationsAgent->$operation($entity_name, $entity_id, $image_name);
+            $this->operationsAgent->$operation($entity_name, $entity_id, $image_name);
 
-            return ['error'=>false, 'item'=>$item]; //какой-то item мимо экстрактора
+            return ['error'=>false]; //какой-то item мимо экстрактора
         }
         catch(\Exception $e)
         {
@@ -155,7 +155,7 @@ class ImageOperationController extends Controller
             }
 
             $ext = $image_file->guessClientExtension();
-            $resize_file_path = $this->pathResolver->getResizeTmpDir().'/'.$entity_name.'_'.$entity_id.'_'.$image_name.'_preview'.'.'.$ext;
+            $resize_file_path = $this->pathResolver->getResizeTmpPath().'/'.$entity_name.'_'.$entity_id.'_'.$image_name.'_preview'.'.'.$ext;
 
             $this->operationsAgent->upload($entity_name, $entity_id, $image_name, $image_file);
 

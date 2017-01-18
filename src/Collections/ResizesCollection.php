@@ -35,7 +35,7 @@ class ResizesCollection extends NamedCollection
     {
         if($this->exist($resize_name))
         {
-            $this->getByName($resize_name);
+            return $this->getByName($resize_name);
         }
 
         if($this->original)

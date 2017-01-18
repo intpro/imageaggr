@@ -37,14 +37,14 @@ class PathResolver implements PathResolverInterface
         $this->dir = $dir;
         $this->path = $path;
 
-        $this->setAttr('image_dir',       'image',        $dir, '',              $dirs);
+        $this->setAttr('image_dir',       'image',        $dir, '',             $dirs);
         $this->setAttr('tmp_dir',         'tmp',          $dir, 'tmp',          $dirs);
         $this->setAttr('placeholder_dir', 'placeholders', $dir, 'placeholders', $dirs);
         $this->setAttr('crop_dir',        'crops',        $dir, 'crops',        $dirs);
         $this->setAttr('resize_dir',      'resizes',      $dir, 'resizes',      $dirs);
         $this->setAttr('resize_tmp_dir',  'resizestmp',   $dir, 'tmp/resizes',  $dirs);
 
-        $this->setAttr('image_path',       'image',        $path, '',              $paths);
+        $this->setAttr('image_path',       'image',        $path, '',             $paths);
         $this->setAttr('tmp_path',         'tmp',          $path, 'tmp',          $paths);
         $this->setAttr('placeholder_path', 'placeholders', $path, 'placeholders', $paths);
         $this->setAttr('crop_path',        'crops',        $path, 'crops',        $paths);
@@ -54,14 +54,22 @@ class PathResolver implements PathResolverInterface
 
     private function setAttr($name, $key, $dirpath, $def, array & $params)
     {
+        $this->$name = $dirpath;
+
         if(array_key_exists($key, $params))
         {
-            $this->$name = $dirpath.'/'.$params[$key];
+            $continue_path = $params[$key];
         }
         else
         {
-            $this->$name = $dirpath.'/'.$def;
+            $continue_path = $def;
         }
+
+        if($continue_path)
+        {
+            $this->$name .= '/'.$continue_path;
+        }
+
     }
 
     /**
