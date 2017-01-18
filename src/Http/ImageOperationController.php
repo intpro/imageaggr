@@ -6,14 +6,22 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Interpro\ImageAggr\Contracts\CommandAgents\OperationsAgent;
+use Interpro\ImageAggr\Contracts\Settings\PathResolver;
 
 class ImageOperationController extends Controller
 {
     private $operationsAgent;
+    private $pathResolver;
 
-    public function __construct(OperationsAgent $operationsAgent)
+    public function __construct(OperationsAgent $operationsAgent, PathResolver $pathResolver)
     {
         $this->operationsAgent = $operationsAgent;
+        $this->pathResolver = $pathResolver;
+    }
+
+    public function testpage()
+    {
+        return view('imagetest');
     }
 
     private function same(Request $request, $operation)
@@ -30,7 +38,7 @@ class ImageOperationController extends Controller
             );
 
             if($validator->fails()){
-                return ['status'=>false, 'error'=>$validator->errors()->setFormat(':message<br>')->all()];
+                return ['error'=>true, 'error'=>$validator->errors()->setFormat(':message<br>')->all()];
             }
 
             $entity_name = $request->input('entity_name');
@@ -38,7 +46,7 @@ class ImageOperationController extends Controller
 
             if($request->has('entity_id'))
             {
-                $entity_id = $request->input('entity_id');
+                $entity_id = (int) $request->input('entity_id');
             }
             else
             {
@@ -47,11 +55,11 @@ class ImageOperationController extends Controller
 
             $item = $this->operationsAgent->$operation($entity_name, $entity_id, $image_name);
 
-            return ['status'=>true, 'item'=>$item]; //какой-то item мимо экстрактора
+            return ['error'=>false, 'item'=>$item]; //какой-то item мимо экстрактора
         }
         catch(\Exception $e)
         {
-            return ['status'=>false, $e->getMessage()];
+            return ['error'=>true, $e->getMessage()];
         }
     }
 
@@ -87,7 +95,7 @@ class ImageOperationController extends Controller
             );
 
             if($validator->fails()){
-                return ['status'=>false, 'error'=>$validator->errors()->setFormat(':message<br>')->all()];
+                return ['error'=>true, 'error'=>$validator->errors()->setFormat(':message<br>')->all()];
             }
 
             $entity_name = $request->input('entity_name');
@@ -98,20 +106,20 @@ class ImageOperationController extends Controller
 
             if($request->has('entity_id'))
             {
-                $entity_id = $request->input('entity_id');
+                $entity_id = (int) $request->input('entity_id');
             }
             else
             {
                 $entity_id = 0;
             }
 
-            $item = $this->operationsAgent->crop($entity_name, $entity_id, $image_name, $crop_name, ['x' => $x, 'y' => $y]);
+            $this->operationsAgent->crop($entity_name, $entity_id, $image_name, $crop_name, ['x' => $x, 'y' => $y]);
 
-            return ['status'=>true, 'item'=>$item];
+            return ['error'=>false];
         }
         catch(\Exception $e)
         {
-            return ['status'=>false, $e->getMessage()];
+            return ['error'=>true, $e->getMessage()];
         }
     }
 
@@ -125,13 +133,12 @@ class ImageOperationController extends Controller
                     'entity_name' => 'required',
                     'image_name' => 'required',
                     'entity_id' => 'integer|min:0',
-                    'crop_name' => 'required',
                     'image_file' => 'required|image|max:5120',
                 ]
             );
 
             if($validator->fails()){
-                return ['status'=>false, 'error'=>$validator->errors()->setFormat(':message<br>')->all()];
+                return ['error'=>true, 'error'=>$validator->errors()->setFormat(':message<br>')->all()];
             }
 
             $entity_name = $request->input('entity_name');
@@ -140,20 +147,23 @@ class ImageOperationController extends Controller
 
             if($request->has('entity_id'))
             {
-                $entity_id = $request->input('entity_id');
+                $entity_id = (int) $request->input('entity_id');
             }
             else
             {
                 $entity_id = 0;
             }
 
-            $item = $this->operationsAgent->upload($entity_name, $entity_id, $image_name, $image_file);
+            $ext = $image_file->guessClientExtension();
+            $resize_file_path = $this->pathResolver->getResizeTmpDir().'/'.$entity_name.'_'.$entity_id.'_'.$image_name.'_preview'.'.'.$ext;
 
-            return ['status'=>true, 'item'=>$item];
+            $this->operationsAgent->upload($entity_name, $entity_id, $image_name, $image_file);
+
+            return ['error'=>false, 'preview' => $resize_file_path];
         }
         catch(\Exception $e)
         {
-            return ['status'=>false, $e->getMessage()];
+            return ['error'=>true, $e->getMessage()];
         }
     }
 }

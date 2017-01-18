@@ -62,7 +62,7 @@ class ImageSetting implements ImageSettingInterface
     /**
      * @param string $resize_name
      *
-     * @return \Interpro\ImageAgrTypes\Concept\Settings\ResizeSetting
+     * @return \Interpro\ImageAggrTypes\Concept\Settings\ResizeSetting
      */
     public function getResize($resize_name)
     {
@@ -72,7 +72,7 @@ class ImageSetting implements ImageSettingInterface
     /**
      * @param string $crop_name
      *
-     * @return \Interpro\ImageAgrTypes\Concept\Settings\CropSetting
+     * @return \Interpro\ImageAggrTypes\Concept\Settings\CropSetting
      */
     public function getCrop($crop_name)
     {

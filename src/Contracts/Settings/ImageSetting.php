@@ -27,14 +27,14 @@ interface ImageSetting
     /**
      * @param string $resize_name
      *
-     * @return \Interpro\ImageAgrTypes\Concept\Settings\ResizeSetting
+     * @return \Interpro\ImageAggrTypes\Concept\Settings\ResizeSetting
      */
     public function getResize($resize_name);
 
     /**
      * @param string $crop_name
      *
-     * @return \Interpro\ImageAgrTypes\Concept\Settings\CropSetting
+     * @return \Interpro\ImageAggrTypes\Concept\Settings\CropSetting
      */
     public function getCrop($crop_name);
 

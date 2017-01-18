@@ -99,11 +99,11 @@ class OperationsAgent implements OperationsAgentInterface
         $this->ownerNameControl($owner_name);
         $this->imageNameControl($image_name);
 
-        $type = $this->taxonomy->getGroup($owner_name);
+        $type = $this->taxonomy->getType($owner_name);
 
         $imageField = $type->getOwn($image_name);
 
-        if($imageField->getName() !== 'image')
+        if($imageField->getFieldTypeName() !== 'image')
         {
             throw new ImageAggrException('Тип поля хозяина '.$owner_name.' = '.$imageField->getName().' вместо ожидаемого image.');
         }
