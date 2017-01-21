@@ -179,6 +179,10 @@ abstract class ImageAggrItem implements AggrOwnItemInterface
             {
                 return $this->getRef($name)->getId();
             }
+            elseif($suffix === 'item')
+            {
+                return $this->getField($name)->getItem();
+            }
         }
         else
         {
