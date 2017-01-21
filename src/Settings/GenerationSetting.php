@@ -77,4 +77,38 @@ abstract class GenerationSetting implements GenerationSettingInterface
     {
         return $this->color;
     }
+
+    /**
+     * @param string $req_name
+     *
+     * @return mixed
+     */
+    public function __get($req_name)
+    {
+        if($req_name === 'name')
+        {
+            return $this->name;
+        }
+        elseif($req_name === 'width')
+        {
+            return $this->width;
+        }
+        elseif($req_name === 'height')
+        {
+            return $this->height;
+        }
+        elseif($req_name === 'variant')
+        {
+            return $this->variant;
+        }
+        elseif($req_name === 'color')
+        {
+            return $this->color;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 }

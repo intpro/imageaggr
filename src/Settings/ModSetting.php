@@ -79,4 +79,41 @@ class ModSetting implements ModSettingInterface
         return $this->y;
     }
 
+    /**
+     * @param string $req_name
+     *
+     * @return mixed
+     */
+    public function __get($req_name)
+    {
+        if($req_name === 'gen')
+        {
+            return $this->gen;
+        }
+        elseif($req_name === 'image')
+        {
+            return $this->image;
+        }
+        elseif($req_name === 'modvar')
+        {
+            return $this->modVar;
+        }
+        elseif($req_name === 'position')
+        {
+            return $this->position;
+        }
+        elseif($req_name === 'x')
+        {
+            return $this->x;
+        }
+        elseif($req_name === 'y')
+        {
+            return $this->y;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 }

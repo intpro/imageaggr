@@ -2,6 +2,7 @@
 
 namespace Interpro\ImageAggr\Settings\Collection;
 
+use Interpro\Core\Iterator\FieldIterator;
 use Interpro\ImageAggr\Exception\ImageAggrException;
 use Interpro\ImageAggr\Contracts\Settings\Collection\ResizeSettingsSet as ResizeSettingsSetInterface;
 
@@ -72,5 +73,10 @@ class ResizeSettingsSet implements ResizeSettingsSetInterface
     public function count()
     {
         return count($this->resize_names);
+    }
+
+    public function sortBy($path, $sort = 'ASC')
+    {
+        return new FieldIterator($this, $path, $sort);
     }
 }

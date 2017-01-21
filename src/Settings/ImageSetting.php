@@ -62,7 +62,7 @@ class ImageSetting implements ImageSettingInterface
     /**
      * @param string $resize_name
      *
-     * @return \Interpro\ImageAggrTypes\Concept\Settings\ResizeSetting
+     * @return \Interpro\ImageAggr\Contracts\Settings\ResizeSetting
      */
     public function getResize($resize_name)
     {
@@ -72,7 +72,7 @@ class ImageSetting implements ImageSettingInterface
     /**
      * @param string $crop_name
      *
-     * @return \Interpro\ImageAggrTypes\Concept\Settings\CropSetting
+     * @return \Interpro\ImageAggr\Contracts\Settings\CropSetting
      */
     public function getCrop($crop_name)
     {
@@ -101,6 +101,39 @@ class ImageSetting implements ImageSettingInterface
     public function getHeight()
     {
         return $this->height;
+    }
+
+    /**
+     * @param string $req_name
+     *
+     * @return mixed
+     */
+    public function __get($req_name)
+    {
+        if($req_name === 'entity_name')
+        {
+            return $this->entity_name;
+        }
+        elseif($req_name === 'name')
+        {
+            return $this->name;
+        }
+        elseif($req_name === 'color')
+        {
+            return $this->color;
+        }
+        elseif($req_name === 'width')
+        {
+            return $this->width;
+        }
+        elseif($req_name === 'height')
+        {
+            return $this->height;
+        }
+        else
+        {
+            return null;
+        }
     }
 
 }

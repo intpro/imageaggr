@@ -2,6 +2,7 @@
 
 namespace Interpro\ImageAggr\Settings\Collection;
 
+use Interpro\Core\Iterator\FieldIterator;
 use Interpro\ImageAggr\Exception\ImageAggrException;
 use Interpro\ImageAggr\Contracts\Settings\Collection\CropSettingsSet as CropSettingsSetInterface;
 
@@ -69,5 +70,10 @@ class CropSettingsSet implements CropSettingsSetInterface
     public function count()
     {
         return count($this->crop_names);
+    }
+
+    public function sortBy($path, $sort = 'ASC')
+    {
+        return new FieldIterator($this, $path, $sort);
     }
 }

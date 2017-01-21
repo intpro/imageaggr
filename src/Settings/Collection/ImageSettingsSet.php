@@ -3,6 +3,7 @@
 namespace Interpro\ImageAggr\Settings\Collection;
 
 use Interpro\Core\Contracts\Taxonomy\Fields\OwnField;
+use Interpro\Core\Iterator\FieldIterator;
 use Interpro\ImageAggr\Exception\ImageAggrException;
 use Interpro\ImageAggr\Contracts\Settings\Collection\ImageSettingsSet as ImageSettingsSetInterface;
 
@@ -73,6 +74,11 @@ class ImageSettingsSet implements ImageSettingsSetInterface
     public function count()
     {
         return count($this->image_names);
+    }
+
+    public function sortBy($path, $sort = 'ASC')
+    {
+        return new FieldIterator($this, $path, $sort);
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace Interpro\ImageAggr\Settings\Collection;
 
+use Interpro\Core\Iterator\FieldIterator;
 use Interpro\ImageAggr\Exception\ImageAggrException;
 use Interpro\ImageAggr\Contracts\Settings\Collection\ModSet as ModSetInterface;
 
@@ -69,6 +70,11 @@ class ModSet implements ModSetInterface
     public function count()
     {
         return count($this->mod_names);
+    }
+
+    public function sortBy($path, $sort = 'ASC')
+    {
+        return new FieldIterator($this, $path, $sort);
     }
 
 }
