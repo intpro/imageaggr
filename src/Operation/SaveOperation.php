@@ -22,6 +22,22 @@ class SaveOperation extends Operation implements SaveOperationInterface
      */
     public function execute(ARef $aRef, ImageSetting $imageSetting, array $user_attrs = [])
     {
+        if(array_key_exists('update_flag', $user_attrs))
+        {
+            if($user_attrs['update_flag'] === 'false')
+            {
+                $update_flag = false;
+            }
+            else
+            {
+                $update_flag = (bool) $user_attrs['update_flag'];
+            }
+        }
+        else
+        {
+            $update_flag = false;
+        }
+
         $owner_name = $aRef->getType()->getName();
         $owner_id = $aRef->getId();
         $image_name = $imageSetting->getName();
@@ -44,27 +60,36 @@ class SaveOperation extends Operation implements SaveOperationInterface
 
         $image_prefix = $this->getImagePrefix($owner_name, $owner_id, $image_name, GenVariant::NONE);
 
-        $tmp_path = $tmp_dir.'/'.$image_prefix;
         $image_path = $images_dir.'/'.$image_prefix;
 
-        $finded = false;
+        $tmp_finded = false;
         $phway = true;
 
         $tmp_file_name = '';
 
-        foreach (glob($tmp_path.'.*') as $file)
+        if($update_flag)
         {
-            if(is_dir($file))
-            {
-                continue;
-            }
+            $tmp_path = $tmp_dir.'/'.$image_prefix;
 
-            $finded = true;
-            $tmp_file_name = $file;
-            break;
+            foreach (glob($tmp_path.'.*') as $file)
+            {
+                if(is_dir($file))
+                {
+                    continue;
+                }
+
+                $tmp_finded = true;
+                $tmp_file_name = $file;
+                break;
+            }
+        }
+        else
+        {
+            //Удаление содержимого тэмпа
+            $this->deleteAllFiles($aRef, $imageSetting, true);
         }
 
-        if($finded)
+        if($tmp_finded)
         {
             $original_mime = File::mimeType($tmp_file_name);
 
@@ -167,7 +192,10 @@ class SaveOperation extends Operation implements SaveOperationInterface
         }
 
         //Удаление содержимого тэмпа
-        $this->deleteAllFiles($aRef, $imageSetting, true);
+        if($update_flag)
+        {
+            $this->deleteAllFiles($aRef, $imageSetting, true);
+        }
 
     }
 }

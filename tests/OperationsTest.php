@@ -46,6 +46,7 @@ class OperationsTest extends TestCase
     public function setUp()
     {
         //Здесь проблема - хранится состояние между тестами (TestImageAggrDbAgent), пока через url запускать
+        //так что запускаем все одним тэстом
 
        /*
         $test = new Interpro\ImageAggr\Test\OperationsTest();
@@ -172,7 +173,18 @@ class OperationsTest extends TestCase
         unlink($mod_file2);
     }
 
-    public function testInitOperation()
+    public function testImageLife()
+    {
+        $this->initOperation();
+        $this->uploadOperation();
+        $this->saveOperation();
+        $this->refreshOperation();
+        $this->cropOperation();
+        $this->cleanPhOperation();
+        $this->deleteOperation();
+    }
+
+    public function initOperation()
     {
         $this->dbAgent->setImages(
             [
@@ -298,7 +310,7 @@ class OperationsTest extends TestCase
     /**
      * @depends testInitOperation
      */
-    public function testUploadOperation()
+    public function uploadOperation()
     {
         $tmp_file_path = sys_get_temp_dir().'/test_imagearrg_oper.png';
 
@@ -340,7 +352,7 @@ class OperationsTest extends TestCase
     /**
      * @depends testUploadOperation
      */
-    public function testSaveOperation()
+    public function saveOperation()
     {
         $save = new SaveOperation($this->pathResolver, $this->taxonomy, $this->dbAgent, $this->phAgent);
 
@@ -350,7 +362,7 @@ class OperationsTest extends TestCase
         $imageFace = $this->imageSettngs->getImage($fotoFace);
         $aRef = new ARef($blockType, 0);
 
-        $user_attrs = ['alt' => 'Альт картинки', 'resizes'=>['res100x100' => ['alt' => 'Альт ресайза res100x100']], 'crops'=>['crop800x600' => ['alt' => 'Альт кропа crop800x600']]];
+        $user_attrs = ['update_flag' => true, 'alt' => 'Альт картинки', 'resizes'=>['res100x100' => ['alt' => 'Альт ресайза res100x100']], 'crops'=>['crop800x600' => ['alt' => 'Альт кропа crop800x600']]];
 
         $save->execute($aRef, $imageFace, $user_attrs);
 
@@ -397,7 +409,7 @@ class OperationsTest extends TestCase
     /**
      * @depends testSaveOperation
      */
-    public function testRefreshOperation()
+    public function refreshOperation()
     {
         //Перекрасить оригинал в новый цвет
         $img = Image::canvas(1600, 1200, '#990099')->encode('png', 100);
@@ -445,7 +457,7 @@ class OperationsTest extends TestCase
     /**
      * @depends testSaveOperation
      */
-    public function testCleanOperation()
+    public function cleanOperation()
     {
         $clean = new CleanOperation($this->pathResolver, $this->taxonomy, $this->dbAgent, $this->phAgent);
 
@@ -483,7 +495,7 @@ class OperationsTest extends TestCase
     /**
      * @depends testSaveOperation
      */
-    public function testCleanPhOperation()
+    public function cleanPhOperation()
     {
         $cleanPh = new CleanPhOperation($this->pathResolver, $this->taxonomy, $this->dbAgent, $this->phAgent);
 
@@ -508,7 +520,7 @@ class OperationsTest extends TestCase
     /**
      * @depends testRefreshOperation
      */
-    public function testCropOperation()
+    public function cropOperation()
     {
         $path_resize4 = $this->pathResolver->getResizeDir().'/test_block_0_foto_face_res800.png';
         $resize4 = Image::make($path_resize4);
@@ -543,7 +555,7 @@ class OperationsTest extends TestCase
     /**
      * @depends testSaveOperation
      */
-    public function testDeleteOperation()
+    public function deleteOperation()
     {
         $delete = new DeleteOperation($this->pathResolver, $this->taxonomy, $this->dbAgent, $this->phAgent);
 

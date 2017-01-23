@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => 'adm'], function()
+Route::group(['middleware' => 'auth', 'prefix' => 'adm'], function()
 {
     Route::get('/image/test',    ['as' => 'clean_image',   'uses' => 'Interpro\ImageAggr\Http\ImageOperationController@testpage']);
     Route::get('/image/clean',   ['as' => 'clean_image',   'uses' => 'Interpro\ImageAggr\Http\ImageOperationController@clean']);
