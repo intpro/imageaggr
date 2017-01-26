@@ -91,6 +91,9 @@ class SaveOperation extends Operation implements SaveOperationInterface
 
         if($tmp_finded)
         {
+            //Удаление всех файлов картинок по пути без расширения, для очистки картинок отличающимся расширением от загруженной
+            $this->deleteAllFiles($aRef, $imageSetting);
+
             $original_mime = File::mimeType($tmp_file_name);
 
             $original_ext = $this->getExtension($original_mime);
