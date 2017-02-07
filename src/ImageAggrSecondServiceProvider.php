@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use Interpro\Core\Contracts\Mediator\RefConsistMediator;
 use Interpro\Core\Contracts\Mediator\SyncMediator;
+use Interpro\Core\Contracts\Taxonomy\Taxonomy;
 use Interpro\Core\Taxonomy\Manifests\BTypeManifest;
 use Interpro\Extractor\Contracts\Creation\CItemBuilder;
 use Interpro\Extractor\Contracts\Creation\CollectionFactory;
@@ -15,6 +16,7 @@ use Interpro\Extractor\Contracts\Db\JoinMediator;
 use Interpro\Extractor\Contracts\Db\MappersMediator;
 use Interpro\Extractor\Contracts\Selection\Tuner;
 use Interpro\ImageAggr\Contracts\Operation\SaveOperation;
+use Interpro\ImageAggr\Contracts\Settings\PathResolver;
 use Interpro\ImageAggr\Creation\CapGenerator;
 use Interpro\ImageAggr\Creation\ImageItemFactory;
 use Interpro\ImageAggr\Db\ImageBMapper;
@@ -37,6 +39,9 @@ use Interpro\ImageAggr\Executors\UpdateExecutor;
 use Interpro\ImageAggr\Contracts\Settings\Collection\ImageSettingsSet;
 use Interpro\ImageAggr\Contracts\Operation\InitOperation;
 use Interpro\ImageAggr\Contracts\Operation\Owner\OwnerDeleteOperationsCall;
+use Interpro\ImageAggr\Service\DbCleaner;
+use Interpro\ImageAggr\Service\FileCleaner;
+use Interpro\Service\Contracts\CleanMediator;
 
 class ImageAggrSecondServiceProvider extends ServiceProvider {
 
@@ -44,6 +49,7 @@ class ImageAggrSecondServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot(Dispatcher $dispatcher,
+                         Taxonomy $taxonomy,
                          InitMediator $initMediator,
                          SyncMediator $syncMediator,
                          UpdateMediator $updateMediator,
@@ -57,9 +63,11 @@ class ImageAggrSecondServiceProvider extends ServiceProvider {
                          SaveOperation $saveOperation,
                          ImageSettingsSet $settingsSet,
                          OwnerDeleteOperationsCall $deleteOperationsCall,
-                         Tuner $tuner)
+                         Tuner $tuner,
+                         CleanMediator $cleanMediator,
+                         PathResolver $pathResolver)
     {
-        Log::info('Загрузка ImageAggrSecondServiceProvider');
+        //Log::info('Загрузка ImageAggrSecondServiceProvider');
 
         //Картинки
         $initializer = new Initializer($initOperation, $settingsSet);
@@ -105,6 +113,15 @@ class ImageAggrSecondServiceProvider extends ServiceProvider {
         //Маппер модификатора
         $mIAmapper = new ModImagesAMapper($collectionFactory, $cItemBuilder, $mappersMediator);
         $mappersMediator->registerAMapper($mIAmapper);
+
+
+        //Для сервиса
+        $cleanerdb = new DbCleaner($taxonomy, $settingsSet);
+        $cleanMediator->registerCleaner($cleanerdb);
+
+        //Для сервиса
+        $cleanerfile = new FileCleaner($settingsSet, $pathResolver);
+        $cleanMediator->registerCleaner($cleanerfile);
     }
 
     /**
@@ -112,7 +129,7 @@ class ImageAggrSecondServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        Log::info('Регистрация ImageAggrSecondServiceProvider');
+        //Log::info('Регистрация ImageAggrSecondServiceProvider');
 
         $forecastList = App::make('Interpro\Core\Contracts\Taxonomy\TypesForecastList');
         $typeRegistrator = App::make('Interpro\Core\Contracts\Taxonomy\TypeRegistrator');

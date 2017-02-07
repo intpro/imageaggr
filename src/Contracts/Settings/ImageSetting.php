@@ -27,16 +27,26 @@ interface ImageSetting
     /**
      * @param string $resize_name
      *
-     * @return \Interpro\ImageAggrTypes\Concept\Settings\ResizeSetting
+     * @return \Interpro\ImageAggr\Contracts\Settings\ResizeSetting
      */
     public function getResize($resize_name);
 
     /**
      * @param string $crop_name
      *
-     * @return \Interpro\ImageAggrTypes\Concept\Settings\CropSetting
+     * @return \Interpro\ImageAggr\Contracts\Settings\CropSetting
      */
     public function getCrop($crop_name);
+
+    /**
+     * @return bool
+     */
+    public function resizeExist($resize_name);
+
+    /**
+     * @return bool
+     */
+    public function cropExist($crop_name);
 
     /**
      * @return string

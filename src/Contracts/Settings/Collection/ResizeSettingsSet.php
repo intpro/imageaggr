@@ -11,4 +11,9 @@ interface ResizeSettingsSet extends Collection
      * @return \Interpro\ImageAggr\Contracts\Settings\ResizeSetting
      */
     public function getResize($resize_name);
+
+    /**
+     * @return bool
+     */
+    public function exist($resize_name);
 }

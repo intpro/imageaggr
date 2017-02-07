@@ -11,4 +11,9 @@ interface CropSettingsSet extends Collection
      * @return \Interpro\ImageAggr\Contracts\Settings\CropSetting
      */
     public function getCrop($crop_name);
+
+    /**
+     * @return bool
+     */
+    public function exist($crop_name);
 }

@@ -14,7 +14,7 @@ class ImageAggrFirstServiceProvider extends ServiceProvider {
      */
     public function boot(Dispatcher $dispatcher)
     {
-        Log::info('Загрузка ImageAggrFirstServiceProvider');
+        //Log::info('Загрузка ImageAggrFirstServiceProvider');
 
         //-----------------------------------------------------------
         $this->publishes([__DIR__.'/config/images.php' => config_path('interpro/images.php')]);
@@ -100,7 +100,7 @@ class ImageAggrFirstServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        Log::info('Регистрация ImageAggrFirstServiceProvider');
+        //Log::info('Регистрация ImageAggrFirstServiceProvider');
 
         //Регистрируем имена, для интерпретации типов при загрузке
         $forecastList = $this->app->make('Interpro\Core\Contracts\Taxonomy\TypesForecastList');

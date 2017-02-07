@@ -26,7 +26,7 @@ class UploadOperation extends Operation implements UploadOperationInterface
 
         $this->checkOwner($aRef);
 
-        $exts = ['png', 'jpg', 'jpeg', 'svg'];
+        $exts = ['png', 'jpg', 'jpeg', 'gif', 'svg'];
 
         $tmp_dir = $this->pathResolver->getTmpDir();
 

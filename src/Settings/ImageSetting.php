@@ -80,6 +80,22 @@ class ImageSetting implements ImageSettingInterface
     }
 
     /**
+     * @return bool
+     */
+    public function resizeExist($resize_name)
+    {
+        return $this->resizes->exist($resize_name);
+    }
+
+    /**
+     * @return bool
+     */
+    public function cropExist($crop_name)
+    {
+        return $this->crops->exist($crop_name);
+    }
+
+    /**
      * @return string
      */
     public function getColor()

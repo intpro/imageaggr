@@ -65,6 +65,14 @@ class CropSettingsSet implements CropSettingsSetInterface
     }
 
     /**
+     * @return bool
+     */
+    public function exist($crop_name)
+    {
+        return array_key_exists($crop_name, $this->crops);
+    }
+
+    /**
      * @return int
      */
     public function count()

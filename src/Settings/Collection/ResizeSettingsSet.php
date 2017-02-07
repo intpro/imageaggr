@@ -68,6 +68,14 @@ class ResizeSettingsSet implements ResizeSettingsSetInterface
     }
 
     /**
+     * @return bool
+     */
+    public function exist($resize_name)
+    {
+        return array_key_exists($resize_name, $this->resizes);
+    }
+
+    /**
      * @return int
      */
     public function count()

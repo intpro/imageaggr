@@ -16,7 +16,7 @@ class ImageAggrUseServiceProvider extends ServiceProvider {
      */
     public function boot(Dispatcher $dispatcher)
     {
-        Log::info('Загрузка ImageAggrUseServiceProvider');
+        //Log::info('Загрузка ImageAggrUseServiceProvider');
     }
 
     /**
@@ -26,7 +26,7 @@ class ImageAggrUseServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        Log::info('Регистрация ImageAggrUseServiceProvider');
+        //Log::info('Регистрация ImageAggrUseServiceProvider');
 
         $this->app->singleton(
             'Interpro\ImageAggr\Contracts\Db\ImageAggrDbAgent',
