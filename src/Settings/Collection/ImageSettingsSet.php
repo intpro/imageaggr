@@ -3,7 +3,9 @@
 namespace Interpro\ImageAggr\Settings\Collection;
 
 use Interpro\Core\Contracts\Taxonomy\Fields\OwnField;
+use Interpro\Core\Enum\OddEven;
 use Interpro\Core\Iterator\FieldIterator;
+use Interpro\Core\Iterator\OddEvenIterator;
 use Interpro\ImageAggr\Exception\ImageAggrException;
 use Interpro\ImageAggr\Contracts\Settings\Collection\ImageSettingsSet as ImageSettingsSetInterface;
 
@@ -79,6 +81,16 @@ class ImageSettingsSet implements ImageSettingsSetInterface
     public function sortBy($path, $sort = 'ASC')
     {
         return new FieldIterator($this, $path, $sort);
+    }
+
+    public function odd()
+    {
+        return new OddEvenIterator($this->images, OddEven::ODD);
+    }
+
+    public function even()
+    {
+        return new OddEvenIterator($this->images, OddEven::EVEN);
     }
 
 }

@@ -2,7 +2,9 @@
 
 namespace Interpro\ImageAggr\Settings\Collection;
 
+use Interpro\Core\Enum\OddEven;
 use Interpro\Core\Iterator\FieldIterator;
+use Interpro\Core\Iterator\OddEvenIterator;
 use Interpro\ImageAggr\Exception\ImageAggrException;
 use Interpro\ImageAggr\Contracts\Settings\Collection\CropSettingsSet as CropSettingsSetInterface;
 
@@ -83,5 +85,15 @@ class CropSettingsSet implements CropSettingsSetInterface
     public function sortBy($path, $sort = 'ASC')
     {
         return new FieldIterator($this, $path, $sort);
+    }
+
+    public function odd()
+    {
+        return new OddEvenIterator($this->crops, OddEven::ODD);
+    }
+
+    public function even()
+    {
+        return new OddEvenIterator($this->crops, OddEven::EVEN);
     }
 }
