@@ -22,13 +22,12 @@ class PathResolver implements PathResolverInterface
     private $resize_tmp_path;
 
     /**
-     * @param array $dirs
      * @param array $paths
      * @param bool $test
      *
      * @return void
      */
-    public function __construct(array $dirs, array $paths, $test = false)
+    public function __construct(array $paths, $test = false)
     {
         $test = (bool) $test;
         $dir = public_path() . '/images'.($test ? '/test' : '');
@@ -37,12 +36,12 @@ class PathResolver implements PathResolverInterface
         $this->dir = $dir;
         $this->path = $path;
 
-        $this->setAttr('image_dir',       'image',        $dir, '',             $dirs);
-        $this->setAttr('tmp_dir',         'tmp',          $dir, 'tmp',          $dirs);
-        $this->setAttr('placeholder_dir', 'placeholders', $dir, 'placeholders', $dirs);
-        $this->setAttr('crop_dir',        'crops',        $dir, 'crops',        $dirs);
-        $this->setAttr('resize_dir',      'resizes',      $dir, 'resizes',      $dirs);
-        $this->setAttr('resize_tmp_dir',  'resizestmp',   $dir, 'tmp/resizes',  $dirs);
+        $this->setAttr('image_dir',       'image',        $dir, '',             $paths);
+        $this->setAttr('tmp_dir',         'tmp',          $dir, 'tmp',          $paths);
+        $this->setAttr('placeholder_dir', 'placeholders', $dir, 'placeholders', $paths);
+        $this->setAttr('crop_dir',        'crops',        $dir, 'crops',        $paths);
+        $this->setAttr('resize_dir',      'resizes',      $dir, 'resizes',      $paths);
+        $this->setAttr('resize_tmp_dir',  'resizestmp',   $dir, 'tmp/resizes',  $paths);
 
         $this->setAttr('image_path',       'image',        $path, '',             $paths);
         $this->setAttr('tmp_path',         'tmp',          $path, 'tmp',          $paths);

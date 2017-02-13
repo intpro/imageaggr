@@ -44,6 +44,8 @@ class UploadOperation extends Operation implements UploadOperationInterface
 
         $image_name_ext = $this->getImagePrefix($owner_name, $owner_id, $image_name, GenVariant::NONE).'.'.$ext;
 
+        $this->deleteAllFiles($aRef, $imageSetting, true);
+
         $uploadedFile->move(
             $tmp_dir,
             $image_name_ext

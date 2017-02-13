@@ -103,7 +103,7 @@ class OperationsTest extends TestCase
 
         $this->taxonomy = $this->getTaxonomy();
         $this->imageSettngs = $this->getSettings($this->taxonomy);
-        $this->pathResolver = new PathResolver([], [], true);
+        $this->pathResolver = new PathResolver([], true);
         $this->dbAgent = new TestImageAggrDbAgent();
         $this->phAgent = new PlaceholderAgent($this->pathResolver);
 

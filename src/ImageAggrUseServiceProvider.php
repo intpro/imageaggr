@@ -38,7 +38,7 @@ class ImageAggrUseServiceProvider extends ServiceProvider {
             function($app)
             {
                 $test = $app->runningUnitTests();
-                return new PathResolver(config('interpro.imageaggr.dirs', []), config('interpro.imageaggr.paths', []), $test);
+                return new PathResolver(config('interpro.imageaggr.paths', []), $test);
             }
         );
 
