@@ -35,7 +35,7 @@ class CropsCollection extends NamedCollection
     {
         if($this->exist($crop_name))
         {
-            $this->getByName($crop_name);
+            return $this->getByName($crop_name);
         }
 
         if($this->original)
