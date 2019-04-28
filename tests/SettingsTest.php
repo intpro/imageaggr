@@ -2,14 +2,14 @@
 
 namespace Interpro\ImageAggr\Test;
 
-class SettingsTest extends \PHPUnit_Framework_TestCase
+class SettingsTest extends \PHPUnit\Framework\TestCase
 {
     private $imageSettngs;
     private $taxonomy;
 
     use SameTrait;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->taxonomy = $this->getTaxonomy();
 

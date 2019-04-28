@@ -43,7 +43,7 @@ class OperationsTest extends TestCase
         return $app;
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         //Здесь проблема - хранится состояние между тестами (TestImageAggrDbAgent), пока через url запускать
         //так что запускаем все одним тэстом
@@ -120,7 +120,7 @@ class OperationsTest extends TestCase
         chmod($mod_file2, 0644);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         $image_dir = $this->pathResolver->getImageDir();
         $resize_dir = $this->pathResolver->getResizeDir();
