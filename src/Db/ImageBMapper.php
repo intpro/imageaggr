@@ -81,22 +81,22 @@ class ImageBMapper implements BMapper
 
         $gens = [];
 
-        foreach($images_result as $item)
+        foreach($images_result as $item_array)
         {
-            $field_name = $item->name;
+            $field_name = $item_array['name'];
 
             if($ownerType->fieldExist($field_name))
             {
                 $imageField = $ownerType->getField($field_name);
 
-                $imageItem = $this->createImage($imageField, $item);
+                $imageItem = $this->createImage($imageField, $item_array);
 
-                $ref = new \Interpro\Core\Ref\ARef($ownerType, $item->entity_id);
+                $ref = new \Interpro\Core\Ref\ARef($ownerType, $item_array['entity_id']);
 
                 $collection->addItem($ref, $field_name, $imageItem);
 
-                $key = $item->name.'_'.$item->entity_id;
-                $gens[$key] = ['resizes' => [], 'crops' => [], 'item' => $imageItem, 'name' => $item->name];
+                $key = $item_array['name'].'_'.$item_array['entity_id'];
+                $gens[$key] = ['resizes' => [], 'crops' => [], 'item' => $imageItem, 'name' => $item_array['name']];
             }
         }
 
