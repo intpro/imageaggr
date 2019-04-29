@@ -13,6 +13,7 @@ use Interpro\Extractor\Contracts\Selection\Tuner;
 use Interpro\ImageAggr\Collections\MapImageCollection;
 use Interpro\ImageAggr\Creation\CapGenerator;
 use Interpro\ImageAggr\Creation\ImageItemFactory;
+use Interpro\Core\Helpers;
 
 class ImageBMapper implements BMapper
 {
@@ -197,9 +198,9 @@ class ImageBMapper implements BMapper
         $resizesQuery = $this->imageQuerier->selectResizesByRef($ref);
         $cropsQuery = $this->imageQuerier->selectCropsByRef($ref);
 
-        $images_result = $imagesQuery->get();
-        $resizes_result = $resizesQuery->get();
-        $crops_result = $cropsQuery->get();
+        $images_result = Helpers::laravel_db_result_to_array($imagesQuery->get());
+        $resizes_result = Helpers::laravel_db_result_to_array($resizesQuery->get());
+        $crops_result = Helpers::laravel_db_result_to_array($cropsQuery->get());
 
         $collection = $this->resultsToCollection($ownerType, $images_result, $resizes_result, $crops_result);
 
@@ -230,9 +231,9 @@ class ImageBMapper implements BMapper
         $resizesQuery = $this->imageQuerier->selectResizesByUnit($selectionUnit);
         $cropsQuery = $this->imageQuerier->selectCropsByUnit($selectionUnit);
 
-        $images_result = $imagesQuery->get();
-        $resizes_result = $resizesQuery->get();
-        $crops_result = $cropsQuery->get();
+        $images_result = Helpers::laravel_db_result_to_array($imagesQuery->get());
+        $resizes_result = Helpers::laravel_db_result_to_array($resizesQuery->get());
+        $crops_result = Helpers::laravel_db_result_to_array($cropsQuery->get());
 
         $collection = $this->resultsToCollection($ownerType, $images_result, $resizes_result, $crops_result);
 
