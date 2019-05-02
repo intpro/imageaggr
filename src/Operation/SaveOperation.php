@@ -155,6 +155,8 @@ class SaveOperation extends Operation implements SaveOperationInterface
         $user_attrs['width'] = $width;
         $user_attrs['height'] = $height;
 
+        $user_attrs = array_merge($user_attrs, ['alt' => '']);
+
         $this->dbAgent->imageToDb($aRef, $imageSetting, $user_attrs);
         //--------------------------------------------------------------------------------------
 
