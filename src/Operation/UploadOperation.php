@@ -55,7 +55,9 @@ class UploadOperation extends Operation implements UploadOperationInterface
 
         chmod($tmp_path, 0644);
 
-        //5й аргумент $tmp определяет, что будут сделаны только служебные ресайзы, например иконка для обновления в интерфесе загрузки
-        $this->makeImageResizes($aRef, $imageSetting, [], true);
+        if(!($ext === 'svg')) { //TODO: как везде надо проверить на mime, сейчас нет времени...
+            //5й аргумент $tmp определяет, что будут сделаны только служебные ресайзы, например иконка для обновления в интерфесе загрузки
+            $this->makeImageResizes($aRef, $imageSetting, [], true);
+        }
     }
 }
