@@ -143,10 +143,14 @@ class SaveOperation extends Operation implements SaveOperationInterface
         }
         else
         {
-            $originalImage = Image::make($original_file_name);
-
-            $width = $originalImage->getWidth();
-            $height = $originalImage->getHeight();
+            if(!$this->isVectorImage($original_mime)) { //TODO:Image make не работает с GD
+                $originalImage = Image::make($original_file_name);
+                $width = $originalImage->getWidth();
+                $height = $originalImage->getHeight();
+            } else {
+                $width = 0;
+                $height = 0;
+            }
 
             $original_file_path = $this->pathResolver->getImagePath().'/'.$image_prefix.'.'.$original_ext;
         }
