@@ -47,11 +47,11 @@ abstract class Operation
         $this->cropType = $this->taxonomy->getType('crop');
 
         $this->mime_types = [
-            'gif'=>'image/gif',
-            'jpeg'=>'image/jpeg',
-            'png'=>'image/png',
-            'svg'=>'image/svg+xml',
-            'svg'=>'image/svg',
+            'image/gif' => 'gif',
+            'image/jpeg' => 'jpeg',
+            'image/png' => 'png',
+            'image/svg+xml' => 'svg',
+            'image/svg' => 'svg',
         ];
     }
 
@@ -138,7 +138,7 @@ abstract class Operation
 
     protected function isVectorImage($mime)
     {
-        if($mime === MimeType::SVG)
+        if($mime === MimeType::SVG or $mime === MimeType::SVG_1)
         {
             return true;
         }
@@ -150,14 +150,12 @@ abstract class Operation
 
     protected function getExtension($mime)
     {
-        $ext = array_search($mime, $this->mime_types);
-
-        if(!$ext)
+        if(!array_key_exists($mime, $this->mime_types))
         {
             throw new OperationException('Попытка получить расширение файла для не поддерживаемого типа '.$mime.'!');
         }
 
-        return $ext;
+        return $this->mime_types[$mime];
     }
 
     protected function getNamedAttrs($name, & $attrs)

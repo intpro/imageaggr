@@ -8,4 +8,5 @@ class MimeType
     const JPEG = 'image/jpeg';
     const PNG = 'image/jpeg';
     const SVG = 'image/svg+xml';
+    const SVG_1 = 'image/svg';//TODO:Костыль, оказывается есть более 1го майма
 }
