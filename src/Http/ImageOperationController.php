@@ -155,7 +155,13 @@ class ImageOperationController extends Controller
             }
 
             $ext = $image_file->guessClientExtension();
-            $resize_file_path = $this->pathResolver->getResizeTmpPath().'/'.$entity_name.'_'.$entity_id.'_'.$image_name.'_preview'.'.'.$ext.'?'.rand(1, 1000);
+
+            if($ext !== 'svg')
+            {
+                $resize_file_path = $this->pathResolver->getResizeTmpPath().'/'.$entity_name.'_'.$entity_id.'_'.$image_name.'_preview'.'.'.$ext.'?'.rand(1, 1000);
+            } else {
+                $resize_file_path = $this->pathResolver->getTmpPath().'/'.$entity_name.'_'.$entity_id.'_'.$image_name.'.'.$ext.'?'.rand(1, 1000);
+            }
 
             $this->operationsAgent->upload($entity_name, $entity_id, $image_name, $image_file);
 

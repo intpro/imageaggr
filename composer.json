@@ -1,7 +1,7 @@
 {
     "name": "interpro/imageaggr",
     "description": "Картинки.",
-    "version": "1.1.13",
+    "version": "1.1.14",
     "require": {
         "interpro/core": "^1.1.0",
         "interpro/extractor": "1.0.*",
