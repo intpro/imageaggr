@@ -50,7 +50,8 @@ abstract class Operation
             'gif'=>'image/gif',
             'jpeg'=>'image/jpeg',
             'png'=>'image/png',
-            'svg'=>'image/svg+xml'
+            'svg'=>'image/svg+xml',
+            'svg'=>'image/svg',
         ];
     }
 
