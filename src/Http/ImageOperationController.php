@@ -133,7 +133,7 @@ class ImageOperationController extends Controller
                     'entity_name' => 'required',
                     'image_name' => 'required',
                     'entity_id' => 'integer|min:0',
-                    'image_file' => 'required|mimes:jpg,jpeg,png,gif,svg|max:5120',
+                    'image_file' => 'required|max:5120',
                 ]
             );
 
